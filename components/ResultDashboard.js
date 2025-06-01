@@ -3,11 +3,50 @@ import {
 } from 'recharts';
 
 export default function ResultDashboard({ data }) {
-  if (!data?.length) return null;
+    if (!data?.length) return null;
+
+    function getSummary(data) {
+        const last = data[data.length - 1];
+        const avgProfit = Math.round(data.reduce((sum, d) => sum + d.profit, 0) / data.length);
+        const breakEvenMonth = data.find(d => d.profit >= 0)?.month || 'Never';
+        const avgROI = (data.reduce((sum, d) => sum + d.roi, 0) / data.length).toFixed(2);
+
+        return {
+            avgProfit,
+            finalPaidUsers: last.paidUsers,
+            finalRevenue: last.revenue,
+            breakEvenMonth,
+            avgROI,
+        };
+    }
+
+    const summary = getSummary(data);
+
 
   return (
     <div className="mt-8 space-y-8">
       <h2 className="text-xl font-semibold">Simulation Results</h2>
+
+        
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded shadow">
+        <div>
+            <div className="text-sm text-gray-600">Avg. Monthly Profit</div>
+            <div className="text-lg font-bold text-green-700">₪{summary.avgProfit}</div>
+        </div>
+        <div>
+            <div className="text-sm text-gray-600">Final Paid Users</div>
+            <div className="text-lg font-bold">{summary.finalPaidUsers}</div>
+        </div>
+        <div>
+            <div className="text-sm text-gray-600">Final Monthly Revenue</div>
+            <div className="text-lg font-bold">₪{summary.finalRevenue}</div>
+        </div>
+        <div>
+            <div className="text-sm text-gray-600">Break Even</div>
+            <div className="text-lg font-bold">{summary.breakEvenMonth === 'Never' ? '—' : `Month ${summary.breakEvenMonth}`}</div>
+        </div>
+        </div>
 
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
