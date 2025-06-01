@@ -7,6 +7,7 @@ export default function ResultDashboard({ data }) {
 
     function getSummary(data) {
         const last = data[data.length - 1];
+        const totalNewUsers = data.reduce((sum, d) => sum + (d.newUsers || 0), 0);
         const avgProfit = Math.round(data.reduce((sum, d) => sum + d.profit, 0) / data.length);
         const breakEvenMonth = data.find(d => d.profit >= 0)?.month || 'Never';
         const avgROI = (data.reduce((sum, d) => sum + d.roi, 0) / data.length).toFixed(2);
@@ -21,9 +22,10 @@ export default function ResultDashboard({ data }) {
             finalRevenue: last.revenue,
             breakEvenMonth,
             avgROI,
-            fixedShare
+            fixedShare,
+            totalNewUsers
         };
-        }
+    }
 
     
     const summary = getSummary(data);
@@ -36,26 +38,31 @@ export default function ResultDashboard({ data }) {
         
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded shadow">
-        <div>
-            <div className="text-sm text-gray-600">Avg. Monthly Profit</div>
-            <div className="text-lg font-bold text-green-700">₪{summary.avgProfit}</div>
-        </div>
-        <div>
-            <div className="text-sm text-gray-600">Fixed Costs Share</div>
-            <div className="text-lg font-bold">{summary.fixedShare}%</div>
-        </div>
-        <div>
-            <div className="text-sm text-gray-600">Final Paid Users</div>
-            <div className="text-lg font-bold">{summary.finalPaidUsers}</div>
-        </div>
-        <div>
-            <div className="text-sm text-gray-600">Final Monthly Revenue</div>
-            <div className="text-lg font-bold">₪{summary.finalRevenue}</div>
-        </div>
-        <div>
-            <div className="text-sm text-gray-600">Break Even</div>
-            <div className="text-lg font-bold">{summary.breakEvenMonth === 'Never' ? '—' : `Month ${summary.breakEvenMonth}`}</div>
-        </div>
+            <div>
+                <div className="text-sm text-gray-600">Avg. Monthly Profit</div>
+                <div className="text-lg font-bold text-green-700">₪{summary.avgProfit}</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-600">Total New Users</div>
+                <div className="text-lg font-bold">{summary.totalNewUsers}</div>
+            </div>
+
+            <div>
+                <div className="text-sm text-gray-600">Fixed Costs Share</div>
+                <div className="text-lg font-bold">{summary.fixedShare}%</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-600">Final Paid Users</div>
+                <div className="text-lg font-bold">{summary.finalPaidUsers}</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-600">Final Monthly Revenue</div>
+                <div className="text-lg font-bold">₪{summary.finalRevenue}</div>
+            </div>
+            <div>
+                <div className="text-sm text-gray-600">Break Even</div>
+                <div className="text-lg font-bold">{summary.breakEvenMonth === 'Never' ? '—' : `Month ${summary.breakEvenMonth}`}</div>
+            </div>
         </div>
 
       <ResponsiveContainer width="100%" height={300}>
@@ -77,6 +84,7 @@ export default function ResultDashboard({ data }) {
                 <tr>
                     <th className="p-2 border">Month</th>
                     <th className="p-2 border">Users</th>
+                    <th className="p-2 border">New Users</th>
                     <th className="p-2 border">Paid</th>
                     <th className="p-2 border">Revenue</th>
                     <th className="p-2 border">Fixed</th>
@@ -93,6 +101,7 @@ export default function ResultDashboard({ data }) {
               <tr key={row.month}>
                     <td className="p-2 border text-center">{row.month}</td>
                     <td className="p-2 border text-center">{row.users}</td>
+                    <td className="p-2 border text-center">{row.newUsers}</td>
                     <td className="p-2 border text-center">{row.paidUsers}</td>
                     <td className="p-2 border text-center">₪{row.revenue}</td>
                     <td className="p-2 border text-center">₪{row.fixedCosts}</td>
