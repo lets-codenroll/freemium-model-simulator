@@ -9,6 +9,7 @@ export default function InputForm({ onSubmit }) {
     price: 19.9,
     cac: 5,
     churnRate: 4,
+    fixedCosts: 500,
     months: 12,
   });
 
@@ -64,6 +65,18 @@ export default function InputForm({ onSubmit }) {
             Monthly Price (₪)
             <input type="number" name="price" value={form.price} onChange={handleChange} className="input" />
             </label>
+
+            <label>
+            Fixed Monthly Costs (₪)
+            <input
+                type="number"
+                name="fixedCosts"
+                value={form.fixedCosts}
+                onChange={handleChange}
+                className="input"
+            />
+            </label>
+
             <label>
             CAC (₪)
             <input type="number" name="cac" value={form.cac} onChange={handleChange} className="input" />

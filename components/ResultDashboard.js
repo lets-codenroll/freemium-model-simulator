@@ -19,7 +19,7 @@ export default function ResultDashboard({ data }) {
             avgROI,
         };
     }
-
+    
     const summary = getSummary(data);
 
 
@@ -63,29 +63,35 @@ export default function ResultDashboard({ data }) {
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm border border-gray-300">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="p-2 border">Month</th>
-              <th className="p-2 border">Users</th>
-              <th className="p-2 border">Paid</th>
-              <th className="p-2 border">Revenue</th>
-              <th className="p-2 border">Expenses</th>
-              <th className="p-2 border">Profit</th>
-              <th className="p-2 border">LTV</th>
-              <th className="p-2 border">ROI</th>
-            </tr>
-          </thead>
+            <thead className="bg-gray-200">
+                <tr>
+                    <th className="p-2 border">Month</th>
+                    <th className="p-2 border">Users</th>
+                    <th className="p-2 border">Paid</th>
+                    <th className="p-2 border">Revenue</th>
+                    <th className="p-2 border">Fixed</th>
+                    <th className="p-2 border">CAC</th>
+                    <th className="p-2 border">Total</th>
+                    <th className="p-2 border">Profit</th>
+                    <th className="p-2 border">LTV</th>
+                    <th className="p-2 border">ROI</th>
+                </tr>
+            </thead>
+
           <tbody>
             {data.map((row) => (
               <tr key={row.month}>
-                <td className="p-2 border text-center">{row.month}</td>
-                <td className="p-2 border text-center">{row.users}</td>
-                <td className="p-2 border text-center">{row.paidUsers}</td>
-                <td className="p-2 border text-center">₪{row.revenue}</td>
-                <td className="p-2 border text-center">₪{row.expenses}</td>
-                <td className="p-2 border text-center">₪{row.profit}</td>
-                <td className="p-2 border text-center">{row.ltv}</td>
-                <td className="p-2 border text-center">{row.roi}</td>
+                    <td className="p-2 border text-center">{row.month}</td>
+                    <td className="p-2 border text-center">{row.users}</td>
+                    <td className="p-2 border text-center">{row.paidUsers}</td>
+                    <td className="p-2 border text-center">₪{row.revenue}</td>
+                    <td className="p-2 border text-center">₪{row.fixedCosts}</td>
+                    <td className="p-2 border text-center">₪{row.variableCosts}</td>
+                    <td className="p-2 border text-center">₪{row.expenses}</td>
+                    <td className="p-2 border text-center">₪{row.profit}</td>
+                    <td className="p-2 border text-center">{row.ltv}</td>
+                    <td className="p-2 border text-center">{row.roi}</td>
+
               </tr>
             ))}
           </tbody>
