@@ -11,14 +11,20 @@ export default function ResultDashboard({ data }) {
         const breakEvenMonth = data.find(d => d.profit >= 0)?.month || 'Never';
         const avgROI = (data.reduce((sum, d) => sum + d.roi, 0) / data.length).toFixed(2);
 
+        const totalFixed = data.reduce((sum, d) => sum + (d.fixedCosts || 0), 0);
+        const totalExpenses = data.reduce((sum, d) => sum + (d.expenses || 0), 0);
+        const fixedShare = totalExpenses > 0 ? ((totalFixed / totalExpenses) * 100).toFixed(1) : 0;
+
         return {
             avgProfit,
             finalPaidUsers: last.paidUsers,
             finalRevenue: last.revenue,
             breakEvenMonth,
             avgROI,
+            fixedShare
         };
-    }
+        }
+
     
     const summary = getSummary(data);
 
@@ -33,6 +39,10 @@ export default function ResultDashboard({ data }) {
         <div>
             <div className="text-sm text-gray-600">Avg. Monthly Profit</div>
             <div className="text-lg font-bold text-green-700">₪{summary.avgProfit}</div>
+        </div>
+        <div>
+            <div className="text-sm text-gray-600">Fixed Costs Share</div>
+            <div className="text-lg font-bold">{summary.fixedShare}%</div>
         </div>
         <div>
             <div className="text-sm text-gray-600">Final Paid Users</div>
