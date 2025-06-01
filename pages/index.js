@@ -94,7 +94,7 @@ export default function Home() {
           </div>
         )}
 
-        {selectedScenario && <ResultDashboard data={selectedScenario.results} />}
+        {selectedScenario && <ResultDashboard data={selectedScenario.results} cac={selectedScenario.inputs.cac} />}
         {selectedScenario && (
         <div className="mt-4">
             <button
