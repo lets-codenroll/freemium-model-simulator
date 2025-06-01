@@ -94,6 +94,11 @@ export default function ResultDashboard({ data, cac }) {
                         <th className="p-2 border">Month</th>
                         <th className="p-2 border">Users</th>
                         <th className="p-2 border">New Users</th>
+                        
+                        
+                        <th className="p-2 border">Churned</th>
+                        <th className="p-2 border">Active</th>
+
                         <th className="p-2 border">Paid</th>
                         <th className="p-2 border">Revenue</th>
                         <th className="p-2 border">Fixed</th>
@@ -111,6 +116,10 @@ export default function ResultDashboard({ data, cac }) {
                         <td className="p-2 border text-center">{row.month}</td>
                         <td className="p-2 border text-center">{row.users}</td>
                         <td className="p-2 border text-center">{row.newUsers}</td>
+                       
+                        
+                        <td className="p-2 border text-center">{row.churned}</td>
+                        <td className="p-2 border text-center">{row.activeUsers}</td>
                         <td className="p-2 border text-center">{row.paidUsers}</td>
                         <td className="p-2 border text-center">₪{row.revenue}</td>
                         <td className="p-2 border text-center">₪{row.fixedCosts}</td>
